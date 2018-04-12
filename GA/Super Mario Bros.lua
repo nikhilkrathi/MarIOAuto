@@ -172,3 +172,54 @@ while true do
 end
 
 print("WINNER Fitness: "..candidates[1].fitness);
+
+for i=1, MAX_CANDIDATES do
+    if candidates[i].has_won then
+        winning_cand = candidates[i];
+        file = io.open("winning_data"..i..".txt", "w");
+            for j=1, tablelength(winning_cand.inputs) do
+                file:write(ctrl_tbl_btis(winning_cand.inputs[j]), "\n");
+            end
+        file:close();
+        print("Candidate #: "..i.."  ".."Winning Time: "..winning_cand.win_time);
+    end
+end
+
+while true do
+    for k=1, MAX_CANDIDATES do
+        if candidates[k].has_won then
+            savestate.load(ss);
+            local cnt = 0;
+            local real_inp = 1;
+            local max_cont = FRAME_MAX_PER_CONTROL * MAX_CONTROLS_PER_CAND;
+        
+            for i = 1, max_cont do
+                disp_text(1, "WINNER")
+                disp_text(2, "Candidate: "..k);
+                
+                joypad.set(1, candidates[k].inputs[real_inp]);
+                player_x_val = mem_read(PLAYER_XPAGE_ADDR) * PLAYER_PAGE_WIDTH + 
+                               mem_read(PLAYER_XPOS_ADDR);
+
+                disp_text(3, "Fitness: "..player_x_val);
+        
+                local win_state = mem_read(PLAYER_FLOAT_STATE);
+                if win_state == PLAYER_FLAGPOLE then
+                    break;
+                end
+
+                tbl = joypad.get(1);
+                disp_text(4, "Input: "..ctrl_tbl_btis(tbl));
+                disp_text(5, "Curr Chromosome: "..real_inp);
+
+                cnt = cnt + 1;
+                if cnt == FRAME_MAX_PER_CONTROL then
+                    cnt = 0;
+                    real_inp = real_inp + 1;
+                end
+
+                emu.frameadvance();
+            end
+        end
+    end
+end
