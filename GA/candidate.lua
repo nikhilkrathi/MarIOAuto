@@ -9,3 +9,11 @@ gen_candidate = {
 }
 gen_candidate.__index = gen_candidate;
 
+function gen_candidate.new()
+end
+
+function generate_candidates(num_cands, num_controls)
+end
+
+function generate_input()
+end
