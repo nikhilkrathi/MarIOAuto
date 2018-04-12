@@ -30,4 +30,15 @@ function generate_candidates(num_cands, num_controls)
 end
 
 function generate_input()
+    local lrv = random_bool();
+    return {
+        up      = random_bool(),
+        down    = random_bool(),
+        left    = lrv,
+        right   = not lrv,
+        A       = random_bool(),
+        B       = random_bool(),
+        start   = false,
+        select  = false
+    };
 end
