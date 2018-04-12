@@ -40,4 +40,12 @@ end
 
 
 function ga_mutate(tbl, count, mutation_rate)
+    local rand_max = 1/mutation_rate;
+    for i=1, count do
+        for j=1, #(tbl[i].inputs) do
+            if math.random(1, rand_max) == 1 then
+                tbl[i].inputs[j] = generate_input();
+            end
+        end
+    end
 end
