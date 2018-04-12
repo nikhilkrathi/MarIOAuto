@@ -10,6 +10,10 @@ gen_candidate = {
 gen_candidate.__index = gen_candidate;
 
 function gen_candidate.new()
+    local self = setmetatable({}, gen_candidate);
+    self.inputs = {};
+    self.input_fit = {};
+    return self;
 end
 
 function generate_candidates(num_cands, num_controls)
