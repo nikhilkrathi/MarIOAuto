@@ -17,6 +17,16 @@ function gen_candidate.new()
 end
 
 function generate_candidates(num_cands, num_controls)
+    local ret = {};
+    for i=1, num_cands do
+        local cand = gen_candidate.new();
+        for j = 1, num_controls do
+            cand.inputs[j] = generate_input();
+            cand.input_fit[j] = 0;
+        end
+    ret[i] = cand;
+    end
+    return ret;
 end
 
 function generate_input()
