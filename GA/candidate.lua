@@ -9,6 +9,7 @@ gen_candidate = {
 }
 gen_candidate.__index = gen_candidate;
 
+
 function gen_candidate.new()
     local self = setmetatable({}, gen_candidate);
     self.inputs = {};
